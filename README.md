@@ -53,20 +53,13 @@ pnpm -v # Deve retornar 11.6.x
 
 ---
 
-## 🌿 Ambientes e Branching
-
-* **`dev`**: Branch de integração diária. Aponta para a API de desenvolvimento/testes.
-* **`main`**: Branch de produção/versão estável do TCC.
-
----
-
-## 📁 Estrutura de Pastas Simplificada
+## 📁 Estrutura de Pastas
 
 ```text
 src/
 ├── assets/          # Imagens e estilos globais
 ├── components/      # Componentes reutilizáveis
-├── services/        # Clientes HTTP (fetch/axios) para o NestJS
+├── services/        # Clientes HTTP (fetch/axios) 
 ├── pages/           # Telas da aplicação
 ├── App.tsx          # Rotas e layout base
 └── main.tsx         # Ponto de entrada
