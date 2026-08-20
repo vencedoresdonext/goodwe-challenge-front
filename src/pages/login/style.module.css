@@ -1,0 +1,46 @@
+.contentLogin {
+  width: 100vw;
+  height: 100vh;
+  background-color: #27262C;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  color: #FFF;
+}
+
+.logo {
+  width: 24%;
+  background-color: aqua;
+}
+
+.formLogin {
+  width: 28%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+h1 {
+  width: 100%;
+  font-size: 84px;
+  font-weight: 400;
+  align-self: flex-start;
+}
+
+.inputsLogin {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputsLogin input {
+  width: 100%;
+}

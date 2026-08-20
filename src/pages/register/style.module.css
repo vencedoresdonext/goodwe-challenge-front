@@ -1,0 +1,104 @@
+.cadastro-page {
+  width: 1728px;
+  height: 1117px;
+  max-width: 100%;
+  background: var(--black, #27262C);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+
+  margin: 0 auto;
+}
+
+/* "escrita cadastro" */
+.cadastro-title {
+  color: var(--withe, #FFF);
+  font-family: "Alan Sans", sans-serif;
+  font-size: 96px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 8px 0;
+}
+
+.cadastro-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.cadastro-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* label "username" */
+.cadastro-field__label--username {
+  color: var(--graye, #999);
+  font-family: "vazirmatn", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* label "login" */
+.cadastro-field__label--login {
+  color: var(--withe, #FFF);
+  font-family: "vazirmatn", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  gap: 20px;
+}
+
+.cadastro-field__input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--graye, #999);
+  border-radius: 0;
+  padding: 8px 4px;
+  color: var(--withe, #FFF);
+  font-family: "IRANSansXFaNum", sans-serif;
+  font-size: 18px;
+  min-width: 380px;
+}
+
+.cadastro-field__input:focus {
+  outline: none;
+  border-bottom-color: var(--withe, #FFF);
+}
+
+/* "já tem uma conta?" */
+.cadastro-link {
+  color: var(--withe, #FFF);
+  text-align: center;
+  font-family: "Alan Sans", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 0;
+  line-height: normal;
+}
+
+.cadastro-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsividade básica para telas menores que 1728px */
+@media (max-width: 1728px) {
+  .cadastro-page {
+    width: 100%;
+    height: 100vh;
+    min-height: 700px;
+  }
+
+  .cadastro-title {
+    font-size: clamp(40px, 8vw, 96px);
+  }
+}
