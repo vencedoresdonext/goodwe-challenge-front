@@ -1,0 +1,235 @@
+/* ===================================================
+   voucher.css
+   Classes exclusivas da tela de Voucher.
+   As classes .background, .frame1, .layout, .sidebar,
+   .perfil*, .menu*, .menu-item, .content, .dot-icon
+   vêm do Inicio.css (importado em voucher.jsx) e NÃO
+   são redefinidas aqui.
+   =================================================== */
+
+/* Destaque do item "Relatórios" ativo no sidebar (usado só na tela de voucher) */
+.voucher-menu-item--ativo {
+  background: #ff000a;
+  border-radius: 8px;
+  padding: 6px 8px;
+  margin: -6px -8px;
+}
+
+/* ADICIONAR isso */
+.voucher-menu-item--ativo span {
+  color: #fff !important;
+}
+
+/* ===== Cabeçalho da página (título + botão adicionar) ===== */
+.voucher-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.voucher-titulo {
+  display: flex;
+  width: 248px;
+  height: 50px;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  text-align: left;
+  font-family: "Work Sans", sans-serif;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.voucher-add-btn {
+  width: 50px;
+  height: 50px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ===== Tabela ===== */
+.voucher-tabela {
+  display: flex;
+  width: 100%;
+  max-width: 1591px;
+  min-height: 756px;
+  flex-direction: column;
+  align-items: stretch;
+  border: 1px solid var(--Light-Grey, #d0d0ce);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.voucher-tabela-header,
+.voucher-tabela-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 16px 24px;
+}
+
+.voucher-tabela-header {
+  background: #f5f5f4;
+  border-bottom: 1px solid #d0d0ce;
+}
+
+.voucher-tabela-row {
+  background: #fafafa;
+  border-bottom: 1px solid #e5e5e3;
+}
+
+.voucher-tabela-row:last-of-type {
+  border-bottom: 1px solid #d0d0ce;
+}
+
+.voucher-col {
+  flex: 1;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  text-align: center;
+}
+
+.voucher-tabela-header .voucher-col {
+  color: #8a8a88;
+  font-weight: 500;
+}
+
+.voucher-tabela-row .voucher-col {
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.voucher-col--nome {
+  text-align: left;
+}
+
+/* ===== Badge de status ===== */
+.voucher-status {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.voucher-status--ativo {
+  background: rgba(0, 200, 83, 0.15);
+  color: #00a848;
+}
+
+.voucher-status--expirado {
+  background: rgba(255, 0, 10, 0.12);
+  color: #ff000a;
+}
+
+.voucher-status--processado {
+  background: rgba(0, 0, 0, 0.08);
+  color: #4a4a4a;
+}
+
+/* ===== Modal ===== */
+.voucher-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.voucher-modal {
+  width: 800px;
+  max-width: 92vw;
+  height: 600px;
+  max-height: 92vh;
+  border-radius: 50px;
+  background: #fff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 40px;
+}
+
+.voucher-modal-close {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  width: 40px;
+  height: 40px;
+  aspect-ratio: 1 / 1;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.voucher-input {
+  border-radius: 10px;
+  border: 0.5px solid #000;
+  background: #fafafa;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  padding: 0 20px;
+  outline: none;
+  max-width: 100%;
+}
+
+.voucher-input--grande {
+  width: 712px;
+  height: 60px;
+}
+
+.voucher-input-row {
+  display: flex;
+  gap: 14px;
+  width: 712px;
+  max-width: 100%;
+}
+
+.voucher-input--medio {
+  width: 399px;
+  height: 60px;
+  flex: 1;
+}
+
+.voucher-input--pequeno {
+  width: 285px;
+  height: 60px;
+}
+
+.voucher-btn-adicionar {
+  width: 285px;
+  height: 60px;
+  border-radius: 10px;
+  background: #ff000a;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+  border: none;
+  cursor: pointer;
+}
+
+.voucher-btn-adicionar-texto {
+  display: flex;
+  width: 100%;
+  height: 41px;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  font-family: Inter, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+}
