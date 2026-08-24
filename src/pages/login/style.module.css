@@ -12,8 +12,7 @@
 }
 
 .logo {
-  width: 24%;
-  background-color: aqua;
+  width: 30%;
 }
 
 .formLogin {
@@ -22,13 +21,13 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
 }
 
 h1 {
   width: 100%;
   font-size: 84px;
-  font-weight: 400;
+  font-weight: 350;
   align-self: flex-start;
 }
 
@@ -38,9 +37,41 @@ h1 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
-.inputsLogin input {
+input {
   width: 100%;
+  border: none;
+  border-bottom: 2px solid #fff;
+  background-color: transparent;
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  transition: .3s;
+}
+
+input:focus {
+  outline: none;
+  border-bottom: 2px solid #FC0000;
+}
+
+button {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #FC0000;
+  transition: .3s;
+}
+
+button:hover {
+  background-color: #b90000;
+}
+
+a {
+  color: rgb(0, 60, 255);
 }

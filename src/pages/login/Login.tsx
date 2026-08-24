@@ -11,14 +11,16 @@ export default function Login() {
 
       <div className={style.formLogin}>
         <h1>Login</h1>
+        
         <div className={style.inputsLogin}>
-          <input type="text" />
-          <input type="password" />
+          <input type="text" placeholder='Username'/>
+          <input type="password" placeholder='Password'/>
         </div>
-        <button>Entrar</button>
-      </div>
 
-      <p>Não tem uma conta? <a href="">Clique aqui</a> e faça o cadastro!</p>
+        <button>Entrar</button>
+        
+        <p>Não tem uma conta? <a href="">Clique aqui</a> e faça o cadastro!</p>
+      </div>
     </div>
   )
 }

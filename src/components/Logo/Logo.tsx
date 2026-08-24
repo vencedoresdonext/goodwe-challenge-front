@@ -1,5 +1,5 @@
-import style from "./Logo.module.css";
-import logoGoodwe from "../assets/logoGoodwe.png"; // ajuste o caminho conforme seu projeto
+import style from "./style.module.css";
+import logoGoodwe from "../../assets/logo_goodwe.png"; // ajuste o caminho conforme seu projeto
 
 interface LogoProps extends React.HTMLAttributes<HTMLDivElement> { }
 
