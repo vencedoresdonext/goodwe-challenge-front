@@ -1,0 +1,121 @@
+# ============================================================
+#  React / TypeScript
+#  Fluxo: install → build → test → espelhar para GitHub
+# ============================================================
+
+trigger:
+  branches:
+    include:
+      - main
+
+pr: none # Só roda na main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: GitHub-Sync-Vars   # GITHUB_PAT, GITHUB_USER, GITHUB_REPO_FRONTEND
+  - name: NODE_VERSION
+    value: '24'
+  - name: PNPM_VERSION
+    value: '11'
+
+stages:
+
+# ──────────────────────────────────────────────
+# CI: Build + Testes
+# ──────────────────────────────────────────────
+- stage: CI
+  displayName: 'Build & Testes (React)'
+  jobs:
+  - job: BuildAndTest
+    displayName: 'Install → Build → Test'
+    steps:
+
+    # 1. Checkout completo
+    - checkout: self
+      fetchDepth: 0
+
+    # 2. Instala Node.js 24
+    - task: NodeTool@0
+      displayName: 'Instalar Node.js $(NODE_VERSION)'
+      inputs:
+        versionSpec: '$(NODE_VERSION).x'
+
+    # 3. Instala pnpm via corepack
+    - script: |
+        corepack enable
+        corepack prepare pnpm@$(PNPM_VERSION) --activate
+        pnpm --version
+      displayName: 'Ativar pnpm $(PNPM_VERSION)'
+
+    # 4. Cache do store do pnpm
+    - task: Cache@2
+      displayName: 'Cache pnpm store'
+      inputs:
+        key: 'pnpm | "$(Agent.OS)" | pnpm-lock.yaml'
+        restoreKeys: |
+          pnpm | "$(Agent.OS)"
+        path: $(Pipeline.Workspace)/.pnpm-store
+
+    # 5. Instala dependências
+    - script: |
+        pnpm config set store-dir $(Pipeline.Workspace)/.pnpm-store
+        pnpm install --frozen-lockfile
+      displayName: 'pnpm install'
+
+    # 6. Build de produção
+    #    Vite/CRA exportam para /dist ou /build — ajuste CI=false se
+    #    warnings de ESLint não devem quebrar o build
+    - script: pnpm run build
+      displayName: 'pnpm build'
+      env:
+        CI: 'false' # warning != error
+
+    # 7. Testes
+    # - script: pnpm run test -- --reporter=junit --outputFile=junit.xml --run
+      # displayName: 'pnpm test'
+      # Se for Jest puro
+      # pnpm run test -- --watchAll=false --ci --reporters=jest-junit
+
+    # 8. Publica resultados de testes
+    #- task: PublishTestResults@2
+      # displayName: 'Publicar resultados dos testes'
+      # condition: always()
+      # inputs:
+        # testResultsFormat: 'JUnit'
+        # testResultsFiles: '**/junit.xml'
+        # failTaskOnFailedTests: true
+
+    # 9. Publica artefato do build
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publicar artefato /dist'
+      condition: succeeded()
+      inputs:
+        pathToPublish: 'dist'
+        artifactName: 'frontend-dist'
+
+# ──────────────────────────────────────────────
+# Mirror para GitHub
+# ──────────────────────────────────────────────
+- stage: Mirror
+  displayName: 'Espelhar para GitHub'
+  dependsOn: CI
+  condition: succeeded()
+  jobs:
+  - job: MirrorToGitHub
+    displayName: 'git push → GitHub'
+    steps:
+
+    - checkout: self
+      fetchDepth: 0
+
+    - script: |
+        git config user.email "vencedoresdonext@gmail.com"
+        git config user.name  "vencedoresdonext"
+
+        git remote add github \
+          https://$(GITHUB_PAT)@github.com/$(GITHUB_USER)/$(GITHUB_REPO_FRONTEND).git
+
+        git push github HEAD:$(Build.SourceBranchName) --force
+      displayName: 'Push para GitHub'
