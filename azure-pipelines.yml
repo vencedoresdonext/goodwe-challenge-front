@@ -8,13 +8,13 @@ trigger:
     include:
       - main
 
-pr: none # Só roda na main
+pr: none
 
 pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  - group: GitHub-Sync-Vars   # GITHUB_PAT, GITHUB_USER, GITHUB_REPO_FRONTEND
+  - group: GitHub-Sync-Vars
   - name: NODE_VERSION
     value: '24.16'
   - name: PNPM_VERSION
