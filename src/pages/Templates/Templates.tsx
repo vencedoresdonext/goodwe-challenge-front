@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getReports } from '../../services/reports'
+import { getReports } from '../../services/domains/reports'
 import type { Report } from '../../types'
 import style from './style.module.css'
 
@@ -8,7 +8,7 @@ export default function Templates() {
   const [loadingId, setLoadingId] = useState<string | null>(null)
 
   useEffect(() => {
-    getReports().then(setReports)
+    getReports().then((data) => setReports(data as unknown as Report[]))
   }, [])
 
   async function handleGenerate(report: Report) {

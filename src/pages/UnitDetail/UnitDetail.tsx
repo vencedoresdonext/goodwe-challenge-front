@@ -1,8 +1,8 @@
+import { MoreVertical } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { MoreVertical } from 'lucide-react'
-import { getPlaceById } from '../../services/places'
-import { getChargersByPlace, getPlaceStats } from '../../services/chargers'
+import { getChargersByPlace, getPlaceStats } from '../../services/domains/chargers'
+import { getPlaceById } from '../../services/domains/places'
 import type { Charger, ChargerStatus, Place, PlaceStats } from '../../types'
 import style from './style.module.css'
 

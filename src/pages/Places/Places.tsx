@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MoreVertical, Plus } from 'lucide-react'
-import { getPlaces } from '../../services/places'
 import type { Place } from '../../types'
 import style from './style.module.css'
+import { getPlaces } from '../../services/domains/places'
 
 export default function Places() {
   const [places, setPlaces] = useState<Place[]>([])
