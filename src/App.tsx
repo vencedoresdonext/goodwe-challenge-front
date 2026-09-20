@@ -3,7 +3,7 @@ import Layout from './components/Layout/Layout'
 import Places from './pages/Places/Places'
 import Templates from './pages/Templates/Templates'
 import UnitDetail from './pages/UnitDetail/UnitDetail'
-import Login from './pages/login/Login'
+import Login from './pages/Login/Login'
 
 export default function App() {
   return (
