@@ -1,0 +1,158 @@
+.sidebar {
+  width: 76px;
+  min-width: 76px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background-color: #1c1b20;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 0;
+  overflow: hidden;
+  transition: width 0.25s ease;
+}
+
+.sidebar.expanded {
+  width: 220px;
+  min-width: 220px;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0 18px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userName {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.toggle {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  border-radius: 50%;
+  border: none;
+  background-color: #322f37;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: auto;
+  transition: background-color 0.2s;
+}
+
+.toggle:hover {
+  background-color: #423f47;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+  transition: transform 0.25s ease;
+}
+
+.divider {
+  width: 32px;
+  height: 2px;
+  background-color: #fff;
+  opacity: 0.5;
+  margin: 4px auto 0;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  margin-top: 24px;
+  flex: 1;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: center;
+  padding: 12px 0;
+  margin: 0 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: background-color 0.2s;
+}
+
+.expanded .navItem {
+  justify-content: flex-start;
+  padding: 12px 14px;
+}
+
+.navIcon {
+  color: #fc0000;
+  min-width: 20px;
+}
+
+.navItem:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.navItemActive {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  padding: 0 12px;
+}
+
+.bottomItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  border: none;
+  background: none;
+  color: #9c9ca3;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.bottomItem:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.logout {
+  color: #fc0000;
+}
