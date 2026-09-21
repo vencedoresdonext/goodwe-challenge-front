@@ -1,13 +1,25 @@
-import { api } from "../api"
+import { api } from '../api'
 
-export const login = (username: string, password: string) =>
-  api<{ token: string }>('/auth/web/login', {
+export interface AuthTokens {
+  accessToken: string
+  refreshToken: string
+}
+
+export const login = async (identifier: string, password: string) => {
+  const res = await api<{ data: AuthTokens }>('/auth/web/login', {
     method: 'POST',
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ identifier, password }),
   })
+  return res.data
+}
 
-export const register = (username: string, password: string) =>
-  api<void>('/auth/web/signup', {
+export const register = (data: {
+  email: string
+  fullName: string
+  phone: string
+  password: string
+}) =>
+  api<AuthTokens>('/auth/web/signup', {
     method: 'POST',
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify(data),
   })
