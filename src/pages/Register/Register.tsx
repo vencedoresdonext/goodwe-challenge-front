@@ -1,59 +1,113 @@
-import { useState } from 'react'
-// import { useNavigate } from 'react-router-dom'
+import { useState, type FormEvent } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import Logo from '../../components/Logo/Logo.js'
 import Button from '../../components/Button/Button.tsx'
 import style from './style.module.css'
+import { register } from '../../services/domains/auth.ts'
+import { tokenStorage } from '../../services/api.ts'
 
 export default function Register() {
-  const [username, setUsername] = useState('')
-  const [login, setLogin] = useState('')
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
+  const [form, setForm] = useState({ fullName: '', email: '', phone: '', password: '' })
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  // function handleSubmit(e) {
-  //   e.preventDefault()
-  //   // Front-end apenas: sem integração com backend por enquanto.
-  //   console.log({ username, login })
-  //   navigate('/inicio')
-  // }
+  const set = (field: keyof typeof form) =>
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      setForm((prev) => ({ ...prev, [field]: e.target.value }))
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+    try {
+      const tokens = await register(form)
+      tokenStorage.set(tokens)
+      navigate('/inicio')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao cadastrar')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <div className={style['cadastro-page']}>
-      <Logo />
+      <div className={style['cadastro-logo']}>
+        <Logo />
+      </div>
 
       <h1 className={style['cadastro-title']}>Cadastro</h1>
 
-      <form className={style['cadastro-form']}>
+      <form className={style['cadastro-form']} onSubmit={handleSubmit}>
         <div className={style['cadastro-field']}>
-          <label htmlFor="username" className={style['cadastro-field__label cadastro-field__label--username']}>
-          </label>
           <input
-            id="username"
+            className={style['cadastro-field__input']}
             type="text"
-            className={`${style['cadastro-field__input']} ${style['cadastro-field__input--login']}`}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Digite seu usuário"
+            placeholder="Nome completo"
+            aria-label="Nome completo"
+            autoComplete="name"
+            value={form.fullName}
+            onChange={set('fullName')}
+            required
           />
         </div>
 
         <div className={style['cadastro-field']}>
-          <label htmlFor="login" className={`${style['cadastro-field__label']} ${style['cadastro-field__label--login']}`}>
-          </label>
           <input
-            id="login"
-            type="password"
-            className={`${style['cadastro-field__input']} ${style['cadastro-field__input--login']}`}
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
-            placeholder="Digite sua senha"
+            className={style['cadastro-field__input']}
+            type="email"
+            placeholder="Email"
+            aria-label="Email"
+            autoComplete="email"
+            value={form.email}
+            onChange={set('email')}
+            required
           />
         </div>
 
-        <Button type="submit">login</Button>
+        <div className={style['cadastro-field']}>
+          <input
+            className={style['cadastro-field__input']}
+            type="tel"
+            placeholder="Telefone com DDD (+5511999999999)"
+            aria-label="Telefone"
+            autoComplete="tel"
+            value={form.phone}
+            onChange={set('phone')}
+            required
+          />
+        </div>
+
+        <div className={style['cadastro-field']}>
+          <input
+            className={style['cadastro-field__input']}
+            type="password"
+            placeholder="Senha"
+            aria-label="Senha"
+            autoComplete="new-password"
+            value={form.password}
+            onChange={set('password')}
+            required
+          />
+          <small className={style['cadastro-hint']}>
+            Mín. 8 caracteres, com maiúscula, minúscula, número e símbolo.
+          </small>
+        </div>
+
+        {error && (
+          <p className={style['cadastro-error']} role="alert">
+            {error}
+          </p>
+        )}
+
+        <Button type="submit">
+          {loading ? 'Cadastrando...' : 'Cadastrar'}
+        </Button>
       </form>
 
       <p className={style['cadastro-link']}>
-        Já tem uma conta? Faça <a href="/login" className="cadastro-link__action">Login</a>
+        Já tem uma conta? Faça <Link to="/login">Login</Link>
       </p>
     </div>
   )

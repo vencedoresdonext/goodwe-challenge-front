@@ -10,7 +10,7 @@ export default function Places() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    getPlaces().then(setPlaces)
+    getPlaces().then(setPlaces).catch(() => setPlaces([]))
   }, [])
 
   return (
