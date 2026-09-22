@@ -4,7 +4,7 @@ Aplicação web desenvolvida como parte do Challenge. Interface responsável pel
 
 ---
 
-## 🛠️ Tecnologias e Runtimes
+## Tecnologias e Runtimes
 
 | Tecnologia | Versão Especificada | Função |
 | :--- | :--- | :--- |
@@ -15,7 +15,7 @@ Aplicação web desenvolvida como parte do Challenge. Interface responsável pel
 
 ---
 
-## ⚙️ Pré-requisitos
+## Pré-requisitos
 
 Certifique-se de possuir o **Node.js 24.16.x** e o **PNPM 11.6.x** instalados no seu ambiente local.
 
@@ -26,7 +26,7 @@ pnpm -v # Deve retornar 11.6.x
 
 ---
 
-## 🚀 Como Executar o Projeto Localmente
+## Como Executar o Projeto Localmente
 
 1. **Clone o repositório:**
    ```bash
@@ -53,7 +53,7 @@ pnpm -v # Deve retornar 11.6.x
 
 ---
 
-## 📁 Estrutura de Pastas
+## Estrutura de Pastas
 
 ```text
 src/
