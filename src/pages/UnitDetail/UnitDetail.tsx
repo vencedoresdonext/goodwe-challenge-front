@@ -1,8 +1,14 @@
 import { MoreVertical } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getChargersByPlace, getPlaceStats } from '../../services/domains/chargers'
-import { getPlaceById } from '../../services/domains/places'
+import {
+  getMockChargersByPlaceId,
+  getMockPlaceById,
+  getMockStatsByPlaceId,
+} from '../../mocks/data'
+// import { useEffect } from 'react'
+// import { getChargersByPlace, getPlaceStats } from '../../services/domains/chargers'
+// import { getPlaceById } from '../../services/domains/places'
 import type { Charger, ChargerStatus, Place, PlaceStats } from '../../types'
 import style from './style.module.css'
 
@@ -14,10 +20,18 @@ const statusLabel: Record<ChargerStatus, string> = {
 
 export default function UnitDetail() {
   const { placeId } = useParams<{ placeId: string }>()
+
+  // TEMP: tela ainda em andamento. Usando dados mockados (por placeId) até a
+  // integração com os endpoints reais (chargers/stats) ser finalizada.
+  const [place] = useState<Place | null>(getMockPlaceById(placeId))
+  const [chargers] = useState<Charger[]>(getMockChargersByPlaceId(placeId))
+  const [stats] = useState<PlaceStats | null>(getMockStatsByPlaceId(placeId))
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+
+  /* Lógica original (restaurar quando a tela/integração estiver pronta):
   const [place, setPlace] = useState<Place | null>(null)
   const [chargers, setChargers] = useState<Charger[]>([])
   const [stats, setStats] = useState<PlaceStats | null>(null)
-  const [selectedId, setSelectedId] = useState<string | null>(null)
 
   useEffect(() => {
     if (!placeId) return
@@ -25,6 +39,7 @@ export default function UnitDetail() {
     getChargersByPlace(placeId).then(setChargers)
     getPlaceStats(placeId).then(setStats)
   }, [placeId])
+  */
 
   return (
     <div className={style.page}>

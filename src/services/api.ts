@@ -25,11 +25,13 @@ export async function api<T>(path: string, options: RequestInit = {}): Promise<T
     },
   })
 
-  if (response.status === 401 && !path.startsWith('/auth/')) {
-    tokenStorage.clear()
-    window.location.href = '/login'
-    throw new Error('Não autorizado')
-  }
+  // TEMP: redirecionamento automático para /login em 401 desativado,
+  // já que o fluxo de login/registro está desativado e não há token real.
+  // if (response.status === 401 && !path.startsWith('/auth/')) {
+  //   tokenStorage.clear()
+  //   window.location.href = '/login'
+  //   throw new Error('Não autorizado')
+  // }
 
   if (!response.ok) {
     const body = await response.json().catch(() => ({}))

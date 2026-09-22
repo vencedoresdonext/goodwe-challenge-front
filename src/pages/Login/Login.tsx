@@ -2,8 +2,8 @@ import { useState, type FormEvent } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import style from './style.module.css'
 import Logo from '../../components/Logo/Logo'
-import { login } from '../../services/domains/auth'
-import { tokenStorage } from '../../services/api'
+// import { login } from '../../services/domains/auth' // TEMP: login via API desativado
+// import { tokenStorage } from '../../services/api' // TEMP: não guarda token, pois auth está desativada
 
 export default function Login() {
   const navigate = useNavigate()
@@ -12,9 +12,16 @@ export default function Login() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
+  // TEMP: fluxo de login/registro desativado.
+  // Ao clicar em "Entrar" vai direto para a tela inicial (/places),
+  // sem chamar a API de autenticação.
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setError('')
+    setLoading(false)
+    navigate('/places')
+
+    /* Lógica original (restaurar quando o login voltar a ser usado):
     setLoading(true)
     try {
       const tokens = await login(identifier, password)
@@ -25,6 +32,7 @@ export default function Login() {
     } finally {
       setLoading(false)
     }
+    */
   }
 
   return (
@@ -42,14 +50,14 @@ export default function Login() {
             placeholder="Email ou telefone"
             value={identifier}
             onChange={(e) => setIdentifier(e.target.value)}
-            required
+            // required removido: TEMP, tela liberada sem preencher/logar de fato
           />
           <input
             type="password"
             placeholder="Senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
+            // required removido: TEMP, tela liberada sem preencher/logar de fato
           />
         </div>
 

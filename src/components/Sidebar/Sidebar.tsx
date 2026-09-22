@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { ChevronRight, LineChart, Plug, Settings, CircleHelp, LogOut } from 'lucide-react'
 import style from './style.module.css'
+import { MOCK_USER } from '../../mocks/data'
 
 const navItems = [
-  { to: '/relatorios', label: 'Relatórios', icon: LineChart },
-  { to: '/lugares', label: 'Usinas', icon: Plug },
+  { to: '/templates', label: 'Relatórios', icon: LineChart },
+  { to: '/places', label: 'Usinas', icon: Plug },
   { to: '/configuracao', label: 'Configuração', icon: Settings },
 ]
 
@@ -24,10 +25,10 @@ export default function Sidebar() {
         <div className={style.profile}>
           <img
             className={style.avatar}
-            src="https://api.dicebear.com/7.x/avataaars/svg?seed=admin"
+            src={MOCK_USER.avatarUrl}
             alt="Usuário"
           />
-          {expanded && <span className={style.userName}>Usuário Teste</span>}
+          {expanded && <span className={style.userName}>{MOCK_USER.name}</span>}
           <button
             type="button"
             className={style.toggle}

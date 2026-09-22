@@ -1,17 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MoreVertical, Plus } from 'lucide-react'
 import type { Place } from '../../types'
 import style from './style.module.css'
-import { getPlaces } from '../../services/domains/places'
+import { MOCK_PLACES } from '../../mocks/data'
+// import { useEffect } from 'react'
+// import { getPlaces } from '../../services/domains/places'
 
 export default function Places() {
-  const [places, setPlaces] = useState<Place[]>([])
+  // TEMP: tela ainda em andamento / rota /stations retornando vazio (401 sem
+  // token real). Usando dados mockados até a integração ser finalizada.
+  const [places] = useState<Place[]>(MOCK_PLACES)
   const navigate = useNavigate()
+
+  /* Lógica original (restaurar quando a integração estiver pronta):
+  const [places, setPlaces] = useState<Place[]>([])
 
   useEffect(() => {
     getPlaces().then(setPlaces).catch(() => setPlaces([]))
   }, [])
+  */
 
   return (
     <div className={style.page}>
@@ -35,7 +43,7 @@ export default function Places() {
             key={place.id}
             type="button"
             className={style.card}
-            onClick={() => navigate(`/places/${place.id}`)}
+            onClick={() => navigate(`/units/${place.id}`)}
           >
             <div className={style.imageWrapper}>
               <img src={place.imageUrl} alt={place.name} />
