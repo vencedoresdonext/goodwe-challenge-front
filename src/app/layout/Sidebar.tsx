@@ -2,7 +2,6 @@ import { BatteryCharging, ChevronRight, LogOut, Plug, Receipt, Settings } from '
 import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../modules/auth'
-import { useApiHealth } from '../../modules/health'
 import { cn, initials } from '../../shared/utils'
 import { paths } from '../router/paths'
 import styles from './Sidebar.module.css'
@@ -14,12 +13,9 @@ const NAV_ITEMS = [
   { to: paths.settings, label: 'Configuração', icon: Settings },
 ]
 
-const HEALTH_LABEL = { checking: 'Verificando API…', online: 'API online', offline: 'API indisponível' }
-
 export function Sidebar() {
   const [expanded, setExpanded] = useState(false)
   const { user, logout } = useAuth()
-  const { health } = useApiHealth()
   const navigate = useNavigate()
   const displayName = user?.fullName || user?.email || 'Usuário'
 
@@ -66,10 +62,6 @@ export function Sidebar() {
       </nav>
 
       <div className={styles.bottom}>
-        <div className={styles.health} title={HEALTH_LABEL[health]}>
-          <span className={cn(styles.healthDot, styles[health])} aria-hidden />
-          <span className={cn(!expanded && 'visually-hidden')}>{HEALTH_LABEL[health]}</span>
-        </div>
         <button type="button" className={styles.logout} onClick={handleLogout} title="Sair">
           <LogOut size={18} aria-hidden />
           <span className={cn(!expanded && 'visually-hidden')}>Sair</span>

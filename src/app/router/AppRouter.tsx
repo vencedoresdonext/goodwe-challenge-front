@@ -28,7 +28,7 @@ const SessionDetailPage = lazy(() =>
   })),
 )
 const TransactionsPage = lazy(() =>
-  import('../../modules/payment/pages/TransactionsPage/TransactionsPage').then((m) => ({ default: m.TransactionsPage })),
+  import('../../modules/transactions/pages/TransactionsPage/TransactionsPage').then((m) => ({ default: m.TransactionsPage })),
 )
 const SettingsPage = lazy(() =>
   import('../../modules/users/pages/SettingsPage/SettingsPage').then((m) => ({ default: m.SettingsPage })),
