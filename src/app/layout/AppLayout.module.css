@@ -1,0 +1,18 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-7) clamp(var(--space-4), 4vw, 56px);
+}
+
+.content > * { max-width: 1280px; }
+
+@media (max-width: 720px) {
+  .layout { flex-direction: column; }
+  .content { padding: var(--space-5) var(--space-4) 96px; }
+}
