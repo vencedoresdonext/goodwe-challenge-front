@@ -8,7 +8,7 @@ Painel web para donos de carregadores de veículos elétricos: usinas, carregado
 
 ---
 
-## Sumário
+## Tecnologias e Runtimes
 
 - [Stack](#stack)
 - [Início rápido](#início-rápido)
@@ -23,7 +23,7 @@ Painel web para donos de carregadores de veículos elétricos: usinas, carregado
 
 ---
 
-## Stack
+## Pré-requisitos
 
 | Camada       | Tecnologia                                        |
 | ------------ | ------------------------------------------------- |
@@ -187,7 +187,7 @@ modules/<dominio>/
 
 ---
 
-## Deploy
+## Como Executar o Projeto Localmente
 
 O build é estático (`dist/`). Como o app usa `BrowserRouter`, o servidor precisa devolver `index.html` para qualquer rota desconhecida:
 
@@ -199,7 +199,7 @@ Defina `VITE_API_URL` nas variáveis de build do provedor.
 
 ---
 
-## Documentação complementar
+## Estrutura de Pastas
 
 - [`docs/API_INTEGRATION.md`](./docs/API_INTEGRATION.md) — rotas do back × funções e telas do front, formatos e pendências do back-end.
 - [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) — camadas, convenções e como adicionar uma nova rota ou tela.
