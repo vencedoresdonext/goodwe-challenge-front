@@ -1,0 +1,12 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.notice {
+  padding: 10px 12px;
+  border-left: 3px solid var(--color-info);
+  background: rgba(59, 130, 246, 0.1);
+  font-size: var(--text-sm);
+}
