@@ -47,7 +47,7 @@ export function AppRouter() {
           <Route element={<PrivateRoute />}>
             <Route element={<AppLayout />}>
               <Route path={paths.stations} element={<StationsPage />} />
-              <Route path="/usinas/:stationId" element={<StationDetailPage />} />
+              <Route path="/stations/:stationId" element={<StationDetailPage />} />
               <Route path={paths.sessions} element={<SessionsPage />} />
               <Route path="/sessoes/:sessionId" element={<SessionDetailPage />} />
               <Route path={paths.transactions} element={<TransactionsPage />} />

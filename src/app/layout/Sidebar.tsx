@@ -7,7 +7,7 @@ import { paths } from '../router/paths'
 import styles from './Sidebar.module.css'
 
 const NAV_ITEMS = [
-  { to: paths.stations, label: 'Usinas', icon: Plug },
+  { to: paths.stations, label: 'Stations', icon: Plug },
   { to: paths.sessions, label: 'Sessões', icon: BatteryCharging },
   { to: paths.transactions, label: 'Transações', icon: Receipt },
   { to: paths.settings, label: 'Configuração', icon: Settings },

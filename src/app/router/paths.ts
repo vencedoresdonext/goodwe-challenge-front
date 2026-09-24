@@ -1,8 +1,8 @@
 export const paths = {
   login: '/login',
   register: '/cadastro',
-  stations: '/usinas',
-  stationDetail: (stationId: string) => `/usinas/${encodeURIComponent(stationId)}`,
+  stations: '/stations',
+  stationDetail: (stationId: string) => `/stations/${encodeURIComponent(stationId)}`,
   sessions: '/sessoes',
   sessionDetail: (sessionId: string) => `/sessoes/${encodeURIComponent(sessionId)}`,
   transactions: '/transacoes',

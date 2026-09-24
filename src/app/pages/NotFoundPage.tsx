@@ -10,7 +10,7 @@ export function NotFoundPage() {
     <EmptyState
       title="Página não encontrada"
       description="O endereço acessado não existe ou foi movido."
-      action={<Button onClick={() => navigate(paths.stations)}>Ir para usinas</Button>}
+      action={<Button onClick={() => navigate(paths.stations)}>Ir para stations</Button>}
     />
   )
 }

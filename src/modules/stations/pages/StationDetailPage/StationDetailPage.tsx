@@ -48,7 +48,7 @@ export function StationDetailPage() {
   if (station.error && !station.data) {
     return (
       <>
-        <PageHeader title="Usina" backTo={{ to: paths.stations, label: 'Usinas' }} />
+        <PageHeader title="Usina" backTo={{ to: paths.stations, label: 'Stations' }} />
         <ErrorState message={station.error.message} onRetry={() => station.reload()} />
       </>
     )
@@ -72,7 +72,7 @@ export function StationDetailPage() {
   return (
     <>
       <PageHeader
-        backTo={{ to: paths.stations, label: 'Usinas' }}
+        backTo={{ to: paths.stations, label: 'Stations' }}
         title={data.name}
         description={
           <span className={styles.address}>

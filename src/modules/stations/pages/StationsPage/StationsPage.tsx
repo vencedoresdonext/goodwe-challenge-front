@@ -7,7 +7,7 @@ import { StationCard } from '../../components/StationCard/StationCard'
 import styles from './StationsPage.module.css'
 
 export function StationsPage() {
-  useDocumentTitle('Usinas')
+  useDocumentTitle('Stations')
   const { data: stations, loading, error, reload } = useRequest(() => stationsApi.list(), [])
 
   const totalConsumption = stations?.reduce((sum, s) => sum + s.currentConsumptionKw, 0) ?? 0
@@ -16,7 +16,7 @@ export function StationsPage() {
   return (
     <>
       <PageHeader
-        title="Usinas"
+        title="Stations"
         description={
           stations && stations.length > 0
             ? `Consumo agora: ${formatKw(totalConsumption)}, dos quais ${formatKw(totalSolar)} vêm da geração solar.`
@@ -29,13 +29,13 @@ export function StationsPage() {
         }
       />
 
-      {loading && <LoadingState label="Carregando usinas…" />}
+      {loading && <LoadingState label="Carregando stations…" />}
       {!loading && error && <ErrorState message={error.message} onRetry={() => reload()} />}
       {!loading && !error && stations?.length === 0 && (
         <EmptyState
           icon={<Plug size={32} />}
           title="Nenhuma usina vinculada"
-          description="As usinas aparecem aqui quando um carregador delas é registrado na sua conta."
+          description="As stations aparecem aqui quando um carregador delas é registrado na sua conta."
         />
       )}
       {!loading && !error && stations && stations.length > 0 && (

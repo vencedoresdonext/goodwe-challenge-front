@@ -2,7 +2,7 @@
 
 # GoodWe ChargeGrid — Front-end
 
-Painel web para donos de carregadores de veículos elétricos: usinas, carregadores, sessões de recarga e transações.
+Painel web para donos de carregadores de veículos elétricos: stations, carregadores, sessões de recarga e transações.
 
 </div>
 
@@ -91,8 +91,8 @@ Todas documentadas no [`.env.example`](./.env.example) e lidas **somente** por `
 | --------------- | ------------------- | ------------------------------------------------------------------------------------------- |
 | Login           | `/login`            | Entra com email **ou** telefone; volta para a página que o usuário tentou abrir             |
 | Cadastro        | `/cadastro`         | Cria conta web com validação igual à do back (senha forte, telefone `+55…`)                  |
-| Usinas          | `/usinas`           | Estações com carregadores do usuário: consumo × demanda contratada, geração solar, ocupação |
-| Detalhe da usina| `/usinas/:id`       | Indicadores de energia, carregadores e status; iniciar recarga; cartão de recebimento. Atualiza a cada 15 s |
+| Stations          | `/stations`           | Estações com carregadores do usuário: consumo × demanda contratada, geração solar, ocupação |
+| Detalhe da usina| `/stations/:id`       | Indicadores de energia, carregadores e status; iniciar recarga; cartão de recebimento. Atualiza a cada 15 s |
 | Sessões         | `/sessoes`          | Histórico paginado de recargas, exportação CSV                                              |
 | Detalhe da sessão | `/sessoes/:id`    | Energia, valor e duração ao vivo (polling); encerrar escolhendo cartão ou PIX               |
 | Transações      | `/transacoes`       | Pagamentos gerados pelas sessões, paginado, exportação CSV                                  |
@@ -148,7 +148,7 @@ src/
 ├── modules/                # Um módulo por domínio do back
 │   ├── auth/               # login, cadastro, AuthProvider, useAuth
 │   ├── users/              # perfil (Configuração)
-│   ├── stations/           # usinas, carregadores, cartão de recebimento
+│   ├── stations/           # stations, carregadores, cartão de recebimento
 │   ├── charging-sessions/  # sessões: listar, detalhar, iniciar, encerrar
 │   ├── payment/            # transações
 │   └── health/             # status da API

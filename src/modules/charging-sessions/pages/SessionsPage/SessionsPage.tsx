@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom'
 import { BatteryCharging, Download } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { paths } from '../../../../app/router/paths'
 import {
   Button,
@@ -73,7 +73,7 @@ export function SessionsPage() {
           icon={<BatteryCharging size={32} />}
           title="Nenhuma sessão registrada"
           description="Inicie uma recarga pela tela de uma usina para que ela apareça aqui."
-          action={<Button onClick={() => navigate(paths.stations)}>Ver usinas</Button>}
+          action={<Button onClick={() => navigate(paths.stations)}>Ver stations</Button>}
         />
       )}
       {!loading && !error && (sessions.length > 0 || pagination.page > 0) && (
