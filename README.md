@@ -102,19 +102,6 @@ Rotas antigas (`/places`, `/register`, `/templates`) redirecionam para as novas.
 
 ---
 
-## Integração com a API
-
-Todas as rotas **web** e **públicas** do back estão integradas. O mapa completo, rota a rota, está em [`docs/API_INTEGRATION.md`](./docs/API_INTEGRATION.md). Pontos principais:
-
-- **Endpoints centralizados** em `src/lib/http/endpoints.ts` — nenhuma URL fica espalhada pelas telas.
-- **Envelope de resposta:** o back responde `{ message, data }` e hoje chega com envelope duplo (`{ data: { data } }`); `unwrapEnvelope` trata os dois formatos.
-- **Autenticação:** tokens em `localStorage`; o `Authorization: Bearer` é injetado pelo interceptor.
-- **Renovação de token:** feita de forma **proativa** (60 s antes de o access token expirar) e com *single-flight* (várias requisições simultâneas disparam um único refresh). Se não for possível renovar, a sessão é encerrada e o usuário volta ao login com aviso.
-- **Erros normalizados** em `ApiError` (status + mensagem pronta para a UI), com mensagens em português para falhas de rede, timeout, 401, 403, 404, 409 e 429.
-- **Rotas `app/*` não são usadas:** elas validam o JWT com outro segredo (`JWT_APP_SECRET`) e respondem 401 para tokens do login web.
-
----
-
 ## Scripts
 
 | Script           | Descrição                                        |
