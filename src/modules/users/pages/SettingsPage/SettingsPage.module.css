@@ -1,0 +1,25 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.sectionTitle { font-size: var(--text-lg); font-weight: 500; }
+
+.form { display: flex; flex-direction: column; gap: var(--space-5); }
+
+.details { display: flex; flex-direction: column; gap: var(--space-4); }
+.details dt { font-size: var(--text-xs); color: var(--color-text-muted); }
+.details dd { font-size: var(--text-sm); word-break: break-all; }
+
+.mono { font-variant-numeric: tabular-nums; }
