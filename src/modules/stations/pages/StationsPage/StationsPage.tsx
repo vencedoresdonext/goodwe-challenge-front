@@ -1,17 +1,28 @@
-import { Plug, RefreshCw } from 'lucide-react'
-import { Button, EmptyState, ErrorState, LoadingState, PageHeader } from '../../../../shared/components'
+import { Plug, Plus, RefreshCw } from 'lucide-react'
+import { useState } from 'react'
+import { Button, EmptyState, ErrorState, LoadingState, PageHeader, useToast } from '../../../../shared/components'
 import { useDocumentTitle, useRequest } from '../../../../shared/hooks'
 import { formatKw } from '../../../../shared/utils'
 import { stationsApi } from '../../api/stations.api'
+import { AddStationModal } from '../../components/AddStation/AddStationModal'
 import { StationCard } from '../../components/StationCard/StationCard'
+import type { Station } from '../../types'
 import styles from './StationsPage.module.css'
 
 export function StationsPage() {
   useDocumentTitle('Stations')
-  const { data: stations, loading, error, reload } = useRequest(() => stationsApi.list(), [])
+  const { data: stations, loading, error, reload, setData } = useRequest(() => stationsApi.list(), [])
+  const [addOpen, setAddOpen] = useState(false)
+  const toast = useToast()
 
   const totalConsumption = stations?.reduce((sum, s) => sum + s.currentConsumptionKw, 0) ?? 0
   const totalSolar = stations?.reduce((sum, s) => sum + s.currentSolarGenerationKw, 0) ?? 0
+
+  function handleCreated(station: Station) {
+    setData((prev) => [...(prev ?? []), station])
+    setAddOpen(false)
+    toast.success('Station adicionada com sucesso.')
+  }
 
   return (
     <>
@@ -23,11 +34,18 @@ export function StationsPage() {
             : 'Locais onde você tem carregadores instalados.'
         }
         actions={
-          <Button variant="ghost" icon={<RefreshCw size={16} />} onClick={() => reload()} disabled={loading}>
-            Atualizar
-          </Button>
+          <>
+            <Button variant="ghost" icon={<RefreshCw size={16} />} onClick={() => reload()} disabled={loading}>
+              Atualizar
+            </Button>
+            <Button icon={<Plus size={16} />} onClick={() => setAddOpen(true)}>
+              Adicionar station
+            </Button>
+          </>
         }
       />
+
+      <AddStationModal open={addOpen} onClose={() => setAddOpen(false)} onCreated={handleCreated} />
 
       {loading && <LoadingState label="Carregando stations…" />}
       {!loading && error && <ErrorState message={error.message} onRetry={() => reload()} />}

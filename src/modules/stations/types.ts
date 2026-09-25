@@ -23,6 +23,15 @@ export interface Station {
   connectors?: Connector[]
 }
 
+export interface CreateStationInput {
+  name: string
+  address: string
+  latitude: number
+  longitude: number
+  pricePerKwh: number
+  contractedDemandKw: number
+}
+
 export interface Charger {
   id: string
   receiverUserId: string
