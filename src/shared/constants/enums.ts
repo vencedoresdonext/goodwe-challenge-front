@@ -76,27 +76,29 @@ export function metaOf<K extends number>(table: Record<K, EnumMeta>, key: number
   return key != null && key in table ? table[key as K] : UNKNOWN
 }
 
-// Padrões de conector aceitos pelo back (ver CONNECTOR_TYPES no service)
-export const CONNECTOR_TYPE_OPTIONS = [
-  { value: 'TYPE2', label: 'Tipo 2 (AC)' },
-  { value: 'CCS2', label: 'CCS2 (DC)' },
-  { value: 'CHADEMO', label: 'CHAdeMO (DC)' },
-  { value: 'GBT', label: 'GB/T' },
-  { value: 'TYPE1', label: 'Tipo 1 / J1772 (AC)' },
-] as const
+// Único modelo suportado hoje (ver CHARGER_MODEL no service)
+export const CHARGER_MODEL = {
+  name: 'GW7K-HCA-20',
+  line: 'Linha HCA G2',
+  description: 'CA residencial monofásico',
+  connectorType: 'TYPE2',
+  connectorLabel: 'Tipo 2 (CA)',
+  defaultPowerKw: 7,
+  maxPowerKw: 7,
+} as const
 
-const CONNECTOR_TYPE_LABEL: Record<string, string> = Object.fromEntries(
-  CONNECTOR_TYPE_OPTIONS.map((o) => [o.value, o.label]),
-)
+// Rótulos de tipos antigos que podem existir no banco
+const CONNECTOR_TYPE_LABEL: Record<string, string> = {
+  TYPE2: 'Tipo 2 (CA)',
+  TYPE1: 'Tipo 1 (CA)',
+  CCS2: 'CCS2 (CC)',
+  CHADEMO: 'CHAdeMO (CC)',
+  GBT: 'GB/T',
+}
 
-// Aceita também variações antigas salvas no banco ("TYPE_2", "Type 2"...)
+// Aceita também variações salvas no banco ("TYPE_2", "Type2"...)
 export function connectorTypeLabel(value: string | null | undefined): string {
   if (!value) return '—'
   const normalized = value.toUpperCase().replace(/[\s_-]/g, '')
   return CONNECTOR_TYPE_LABEL[normalized] ?? value
-}
-
-export function normalizeConnectorType(value: string | null | undefined): string {
-  const normalized = (value ?? '').toUpperCase().replace(/[\s_-]/g, '')
-  return normalized in CONNECTOR_TYPE_LABEL ? normalized : ''
 }

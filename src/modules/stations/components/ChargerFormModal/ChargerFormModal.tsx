@@ -6,6 +6,7 @@ import { stationsApi } from '../../api/stations.api'
 import type { Connector, UpdateChargerInput } from '../../types'
 import { chargerFromConnector, emptyCharger, validateCharger, type ChargerFieldErrors, type ChargerFormState } from '../ChargerFields/charger-form'
 import { ChargerFields } from '../ChargerFields/ChargerFields'
+import { ChargerModel } from '../ChargerFields/ChargerModel'
 import styles from '../AddStation/StationForm.module.css'
 
 const STATUS_OPTIONS = [
@@ -77,7 +78,7 @@ function ChargerForm(props: ChargerFormProps) {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
-    const { input, errors: validation } = validateCharger(form)
+    const { input, errors: validation } = validateCharger(form, connector?.maxPowerKw)
     setErrors(validation)
     if (!input) return
 
@@ -105,6 +106,7 @@ function ChargerForm(props: ChargerFormProps) {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
+        <ChargerModel />
         <ChargerFields
           value={form}
           errors={errors}

@@ -1,7 +1,6 @@
-import { SelectField, TextField } from '../../../../shared/components'
-import { CONNECTOR_TYPE_OPTIONS } from '../../../../shared/constants/enums'
+import { TextField } from '../../../../shared/components'
 import { formatCurrency } from '../../../../shared/utils'
-import type { ChargerFieldErrors, ChargerFormState } from './charger-form'
+import { MAX_CHARGER_POWER_KW, type ChargerFieldErrors, type ChargerFormState } from './charger-form'
 import styles from './ChargerFields.module.css'
 
 interface ChargerFieldsProps {
@@ -27,19 +26,11 @@ export function ChargerFields({
 
   return (
     <div className={layout === 'row' ? styles.row : styles.stack}>
-      <SelectField
-        label="Tipo de conector"
-        placeholder="Selecione"
-        value={value.connectorType}
-        options={[...CONNECTOR_TYPE_OPTIONS]}
-        error={errors.connectorType}
-        onChange={(e) => onChange({ connectorType: e.target.value })}
-        disabled={disabled}
-      />
       <TextField
         label="Potência máx. (kW)"
         inputMode="decimal"
-        placeholder="22"
+        placeholder={String(MAX_CHARGER_POWER_KW)}
+        hint={layout === 'stack' ? `Até ${MAX_CHARGER_POWER_KW} kW. Use menos para limitar a recarga.` : undefined}
         value={value.maxPowerKw}
         error={errors.maxPowerKw}
         onChange={(e) => onChange({ maxPowerKw: e.target.value })}

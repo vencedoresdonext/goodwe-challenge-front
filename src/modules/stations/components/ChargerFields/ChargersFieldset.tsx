@@ -4,6 +4,7 @@ import { formatKw, parseDecimal } from '../../../../shared/utils'
 import type { ChargerFieldErrors, ChargerFormState } from './charger-form'
 import { emptyCharger } from './charger-form'
 import { ChargerFields } from './ChargerFields'
+import { ChargerModel } from './ChargerModel'
 import styles from './ChargersFieldset.module.css'
 
 interface ChargersFieldsetProps {
@@ -44,6 +45,8 @@ export function ChargersFieldset({
           {installedKw > 0 && `, ${formatKw(installedKw)} instalados`}
         </small>
       </legend>
+
+      <ChargerModel />
 
       <ol className={styles.list}>
         {chargers.map((charger, index) => (
