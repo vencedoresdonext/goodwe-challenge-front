@@ -5,6 +5,7 @@ import { useDocumentTitle, useRequest } from '../../../../shared/hooks'
 import { formatKw } from '../../../../shared/utils'
 import { stationsApi } from '../../api/stations.api'
 import { AddStationModal } from '../../components/AddStation/AddStationModal'
+import { EnergyDashboard } from '../../components/EnergyDashboard/EnergyDashboard'
 import { StationCard } from '../../components/StationCard/StationCard'
 import type { Station } from '../../types'
 import styles from './StationsPage.module.css'
@@ -53,15 +54,24 @@ export function StationsPage() {
         <EmptyState
           icon={<Plug size={32} />}
           title="Nenhuma usina vinculada"
-          description="As stations aparecem aqui quando um carregador delas é registrado na sua conta."
+          description="Cadastre sua primeira station com os carregadores instalados nela."
+          action={
+            <Button icon={<Plus size={16} />} onClick={() => setAddOpen(true)}>
+              Adicionar station
+            </Button>
+          }
         />
       )}
       {!loading && !error && stations && stations.length > 0 && (
-        <div className={styles.grid}>
-          {stations.map((station) => (
-            <StationCard key={station.id} station={station} />
-          ))}
-        </div>
+        <>
+          {/* key força recarregar o gráfico quando uma station nova entra */}
+          <EnergyDashboard key={stations.length} />
+          <div className={styles.grid}>
+            {stations.map((station) => (
+              <StationCard key={station.id} station={station} />
+            ))}
+          </div>
+        </>
       )}
     </>
   )

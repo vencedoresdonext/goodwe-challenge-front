@@ -10,6 +10,8 @@
   overflow: auto;
 }
 
+.dialog.lg { width: min(720px, calc(100vw - 32px)); }
+
 .dialog::backdrop {
   background: rgba(10, 10, 12, 0.7);
 }

@@ -9,6 +9,7 @@ export interface MenuItem {
   icon?: ReactNode
   disabled?: boolean
   danger?: boolean
+  onSelect?: () => void
 }
 
 interface MenuProps {
@@ -59,6 +60,7 @@ export function Menu({ label, items }: MenuProps) {
                 disabled={item.disabled}
                 onClick={() => {
                   setOpen(false)
+                  item.onSelect?.()
                 }}
               >
                 {item.icon}

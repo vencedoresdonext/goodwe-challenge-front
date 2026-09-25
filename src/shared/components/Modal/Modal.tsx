@@ -10,9 +10,10 @@ interface ModalProps {
   onClose: () => void
   children: ReactNode
   footer?: ReactNode
+  size?: 'md' | 'lg'
 }
 
-export function Modal({ open, title, description, onClose, children, footer }: ModalProps) {
+export function Modal({ open, title, description, onClose, children, footer, size = 'md' }: ModalProps) {
   const ref = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export function Modal({ open, title, description, onClose, children, footer }: M
   return (
     <dialog
       ref={ref}
-      className={styles.dialog}
+      className={`${styles.dialog} ${size === 'lg' ? styles.lg : ''}`}
       aria-labelledby="modal-title"
       onCancel={(event) => {
         event.preventDefault()

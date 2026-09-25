@@ -34,11 +34,20 @@
 .sectionHeader {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
   margin-bottom: var(--space-4);
 }
+
+.sectionTitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-4);
+}
+
+.dashboard { margin-top: var(--space-7); }
 
 .sectionHeader h2 { font-size: var(--text-lg); font-weight: 500; }
 .sectionHeader span { font-size: var(--text-sm); color: var(--color-text-muted); }

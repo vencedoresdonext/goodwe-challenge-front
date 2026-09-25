@@ -75,3 +75,28 @@ const UNKNOWN: EnumMeta = { label: 'Desconhecido', tone: 'neutral' }
 export function metaOf<K extends number>(table: Record<K, EnumMeta>, key: number | null | undefined): EnumMeta {
   return key != null && key in table ? table[key as K] : UNKNOWN
 }
+
+// Padrões de conector aceitos pelo back (ver CONNECTOR_TYPES no service)
+export const CONNECTOR_TYPE_OPTIONS = [
+  { value: 'TYPE2', label: 'Tipo 2 (AC)' },
+  { value: 'CCS2', label: 'CCS2 (DC)' },
+  { value: 'CHADEMO', label: 'CHAdeMO (DC)' },
+  { value: 'GBT', label: 'GB/T' },
+  { value: 'TYPE1', label: 'Tipo 1 / J1772 (AC)' },
+] as const
+
+const CONNECTOR_TYPE_LABEL: Record<string, string> = Object.fromEntries(
+  CONNECTOR_TYPE_OPTIONS.map((o) => [o.value, o.label]),
+)
+
+// Aceita também variações antigas salvas no banco ("TYPE_2", "Type 2"...)
+export function connectorTypeLabel(value: string | null | undefined): string {
+  if (!value) return '—'
+  const normalized = value.toUpperCase().replace(/[\s_-]/g, '')
+  return CONNECTOR_TYPE_LABEL[normalized] ?? value
+}
+
+export function normalizeConnectorType(value: string | null | undefined): string {
+  const normalized = (value ?? '').toUpperCase().replace(/[\s_-]/g, '')
+  return normalized in CONNECTOR_TYPE_LABEL ? normalized : ''
+}

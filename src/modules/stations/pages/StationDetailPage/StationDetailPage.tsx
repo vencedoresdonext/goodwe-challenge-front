@@ -1,15 +1,17 @@
-import { MapPin, Plug } from 'lucide-react'
+import { MapPin, Plug, Plus } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { paths } from '../../../../app/router/paths'
-import { Badge, EmptyState, ErrorState, LoadingState, PageHeader, useToast } from '../../../../shared/components'
+import { Badge, Button, EmptyState, ErrorState, LoadingState, PageHeader, useToast } from '../../../../shared/components'
 import { useDocumentTitle, usePolling, useRequest } from '../../../../shared/hooks'
 import { formatCurrency, formatKw } from '../../../../shared/utils'
 import { StartSessionModal, chargingSessionsApi, isActiveSession, type ChargingSession } from '../../../charging-sessions'
 import { stationsApi } from '../../api/stations.api'
 import { ChargerCard } from '../../components/ChargerCard/ChargerCard'
+import { ChargerFormModal } from '../../components/ChargerFormModal/ChargerFormModal'
+import { EnergyDashboard } from '../../components/EnergyDashboard/EnergyDashboard'
 import { LoadMeter } from '../../components/LoadMeter/LoadMeter'
-import type { Connector } from '../../types'
+import type { Connector, Station } from '../../types'
 import { getStationMetrics } from '../../utils'
 import styles from './StationDetailPage.module.css'
 
@@ -35,7 +37,9 @@ export function StationDetailPage() {
   )
 
   const [startTarget, setStartTarget] = useState<{ connector: Connector; label: string } | null>(null)
-  
+  const [chargerForm, setChargerForm] = useState<
+    { mode: 'create' } | { mode: 'edit'; connector: Connector; label: string } | null
+  >(null)
 
   const activeByCharger = useMemo(() => {
     const map = new Map<string, ChargingSession>()
@@ -59,7 +63,21 @@ export function StationDetailPage() {
 
   const metrics = getStationMetrics(data)
   const connectors = data.connectors ?? []
-  const labelOf = (connector: Connector) => chargerLabel(connectors.indexOf(connector))
+  const labelOf = (connector: Connector) => chargerLabel(connectors.findIndex((c) => c.id === connector.id))
+
+  function handleChargerSaved(saved: Connector, mode: 'create' | 'edit') {
+    station.setData((prev) => {
+      const current = prev as Station // a página só renderiza com a station carregada
+      const list = current.connectors ?? []
+      return {
+        ...current,
+        connectors:
+          mode === 'create' ? [...list, saved] : list.map((c) => (c.chargerId === saved.chargerId ? saved : c)),
+      }
+    })
+    setChargerForm(null)
+    toast.success(mode === 'create' ? 'Carregador adicionado.' : 'Carregador atualizado.')
+  }
 
   const stats = [
     { label: 'Consumo atual', value: formatKw(data.currentConsumptionKw) },
@@ -95,14 +113,27 @@ export function StationDetailPage() {
       </section>
 
       <div className={styles.sectionHeader}>
-        <h2>Carregadores</h2>
-        <span>
-          {metrics.freeConnectors} de {metrics.totalConnectors} livres, {formatKw(metrics.installedKw)} instalados
-        </span>
+        <div className={styles.sectionTitle}>
+          <h2>Carregadores</h2>
+          <span>
+            {metrics.freeConnectors} de {metrics.totalConnectors} livres, {formatKw(metrics.installedKw)} instalados
+          </span>
+        </div>
+        <Button size="sm" icon={<Plus size={16} />} onClick={() => setChargerForm({ mode: 'create' })}>
+          Adicionar carregador
+        </Button>
       </div>
 
       {connectors.length === 0 ? (
-        <EmptyState icon={<Plug size={32} />} title="Nenhum carregador nesta usina" />
+        <EmptyState
+          icon={<Plug size={32} />}
+          title="Nenhum carregador nesta usina"
+          action={
+            <Button icon={<Plus size={16} />} onClick={() => setChargerForm({ mode: 'create' })}>
+              Adicionar carregador
+            </Button>
+          }
+        />
       ) : (
         <div className={styles.grid}>
           {connectors.map((connector) => (
@@ -112,9 +143,38 @@ export function StationDetailPage() {
               label={labelOf(connector)}
               activeSession={activeByCharger.get(connector.chargerId)}
               onStartSession={(c) => setStartTarget({ connector: c, label: labelOf(c) })}
+              onEdit={(c) => setChargerForm({ mode: 'edit', connector: c, label: labelOf(c) })}
             />
           ))}
         </div>
+      )}
+
+      {connectors.length > 0 && (
+        <div className={styles.dashboard}>
+          <EnergyDashboard stationId={data.id} title="Energia desta usina" />
+        </div>
+      )}
+
+      {chargerForm?.mode === 'edit' ? (
+        <ChargerFormModal
+          open
+          mode="edit"
+          connector={chargerForm.connector}
+          label={chargerForm.label}
+          stationId={data.id}
+          stationPricePerKwh={data.pricePerKwh}
+          onClose={() => setChargerForm(null)}
+          onSaved={handleChargerSaved}
+        />
+      ) : (
+        <ChargerFormModal
+          open={chargerForm?.mode === 'create'}
+          mode="create"
+          stationId={data.id}
+          stationPricePerKwh={data.pricePerKwh}
+          onClose={() => setChargerForm(null)}
+          onSaved={handleChargerSaved}
+        />
       )}
 
       <StartSessionModal

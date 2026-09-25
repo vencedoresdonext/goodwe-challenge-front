@@ -16,6 +16,10 @@ export const endpoints = {
     list: '/stations/web',
     detail: (stationId: string) => `/stations/web/${id(stationId)}`,
     linkCard: (chargerId: string) => `/stations/web/stations/chargers/${id(chargerId)}/card`,
+    geocode: '/stations/web/geocode',
+    chargers: (stationId: string) => `/stations/web/${id(stationId)}/chargers`,
+    charger: (chargerId: string) => `/stations/web/chargers/${id(chargerId)}`,
+    energyDashboard: '/stations/web/dashboard/energy',
   },
   chargingSessions: {
     list: '/charging-session/web/sessions',
